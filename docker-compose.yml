@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: scraper-postgres-fresh
+    environment:
+      POSTGRES_DB: scraperdb
+      POSTGRES_USER: scraper_admin
+      POSTGRES_PASSWORD: supersecret123
+      TZ: UTC
+    ports:
+      - "5435:5432"
+
+  redis:
+    image: redis:7
+    container_name: scraper-redis
+    ports:
+      - "6379:6379"
