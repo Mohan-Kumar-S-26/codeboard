@@ -33,4 +33,10 @@ build/
 .vscode/
 
 
+# Environment files
+.env
+*.env
+
+# Spring properties
+src/main/resources/application.properties
 application.properties
