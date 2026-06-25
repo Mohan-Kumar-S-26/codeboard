@@ -1,16 +1,19 @@
 package com.codeboard.scraper_service.service;
 
 import com.codeboard.scraper_service.dto.CodeForcesStatsDto;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.Serializable;
 import java.util.*;
 
 @Service
-public class CodeForcesService {
+public class CodeForcesService implements Serializable {
 
     private static final String CF_USER_API = "https://codeforces.com/api/user.info?handles=";
     private static final String CF_STATUS_API = "https://codeforces.com/api/user.status?handle=";
-
+    @Cacheable(value = "cfStats", key = "#username")
     public CodeForcesStatsDto getStats(String username) {
         RestTemplate restTemplate = new RestTemplate();
         CodeForcesStatsDto dto = new CodeForcesStatsDto();

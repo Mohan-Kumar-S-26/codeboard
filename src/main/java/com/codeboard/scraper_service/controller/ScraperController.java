@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/scraper")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class ScraperController {
 
@@ -91,14 +92,13 @@ public class ScraperController {
         if (codeforces != null) dashboard.setCodeForces(codeForcesService.getStats(codeforces));
         if (hackerrank != null) dashboard.setHackerRank(hackerRankService.getStats(hackerrank));
 
-        // Calculate total problems
+
         int total = 0;
         if (dashboard.getLeetCode() != null) total += dashboard.getLeetCode().getTotalSolved();
         if (dashboard.getCodeForces() != null) total += dashboard.getCodeForces().getProblemsSolved();
         if (skillrackSolved > 0) total += skillrackSolved;
         dashboard.setTotalProblemsSolved(total);
 
-        // Simple placement score
         int score = Math.min(100, total / 50);
         dashboard.setPlacementReadinessScore(score);
 

@@ -8,11 +8,12 @@ import com.codeboard.scraper_service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements Serializable {
 
     private final UserRepository userRepository;
     private final PlatformStatsRepository platformStatsRepository;

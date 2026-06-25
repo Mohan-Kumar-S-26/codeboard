@@ -1,16 +1,19 @@
 package com.codeboard.scraper_service.service;
 
 import com.codeboard.scraper_service.dto.LeetCodeStatsDto;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
+
+import java.io.Serializable;
 import java.util.Map;
 
 @Service
-public class LeetCodeService {
+public class LeetCodeService implements Serializable {
 
     private static final String LEETCODE_API = "https://leetcode.com/graphql";
-
+    @Cacheable(value = "lcStats", key = "#username")
     public LeetCodeStatsDto getStats(String username) {
 
         String query = """

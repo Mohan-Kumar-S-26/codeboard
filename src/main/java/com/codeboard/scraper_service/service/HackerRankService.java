@@ -1,14 +1,18 @@
 package com.codeboard.scraper_service.service;
 
 import com.codeboard.scraper_service.dto.HackerRankStatsDto;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.Serializable;
 import java.util.*;
 
 @Service
-public class HackerRankService {
-
+public class HackerRankService implements Serializable {
+    @Cacheable(value = "hkStats", key = "#username")
     public HackerRankStatsDto getStats(String username) {
         HackerRankStatsDto dto = new HackerRankStatsDto();
         dto.setUsername(username);
@@ -50,10 +54,8 @@ public class HackerRankService {
                     int stars = 0;
                     if (starsObj != null) {
                         stars = ((Number) starsObj).intValue();
-                        totalStars += stars; // Add to the total count
+                        totalStars += stars; 
                     }
-
-                    // ONLY add the badge to the list if you have actually earned a star in it
                     if (badgeName != null && stars > 0) {
                         badgeNames.add(badgeName);
                     }

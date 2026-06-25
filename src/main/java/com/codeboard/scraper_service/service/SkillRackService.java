@@ -3,6 +3,8 @@ package com.codeboard.scraper_service.service;
 import com.codeboard.scraper_service.dto.SkillRackStatsDto;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 @Service
 public class SkillRackService {
 
